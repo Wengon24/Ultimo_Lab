@@ -1,27 +1,28 @@
-<template> 
 
- <header>
-    <aside class="w-64 bg-base-200 text-base-content hidden md:block"> 
-    <Side/>
-
-  </aside>
-  </header>
-  <<div class="flex h-screen bg-gray-900 text-white">
-    <Sidebar />
-
-    <div class="flex-1 flex flex-col">
+<template>
+  <div class="flex h-screen bg-gray-900 text-white flex-col">
+    <div>
       <Topbar />
-      
     </div>
-  </div> 
-   <main class="flex-1 flex items-center justify-center">
-      <RouterView />
-    </main>
+
+    <!-- Contenedor principal: Sidebar + contenido -->
+    <div class="flex flex-1 overflow-hidden">
+      <!-- Sidebar fijo ancho -->
+      <aside class="w-64 bg-gray-800 p-4 overflow-auto">
+       <Sidebar />
+      </aside>
+
+      <!-- Contenido principal -->
+      <main class="flex-1 relative overflow-auto p-4">
+        <RouterView />
+
+       
+      </main>
+    </div>
+  </div>
 </template>
 
- 
-
 <script setup>
-import Sidebar from './Side.vue'
-import Topbar from './Top.vue'
+import Sidebar from '../components/Side.vue'
+import Topbar from '../components/Top.vue'
 </script>
