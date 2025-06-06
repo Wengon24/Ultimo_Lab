@@ -9,7 +9,7 @@ interface ModalControl {
 
 const modalControl = inject<ModalControl>('modalControl')
 
-// Si inject falla, te recomiendo poner un fallback:
+
 if (!modalControl) {
   console.error('modalControl no encontrado en Sidebar.vue')
 }
