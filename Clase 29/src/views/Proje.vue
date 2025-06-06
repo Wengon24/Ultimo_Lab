@@ -1,18 +1,22 @@
 
+
 <script setup lang="ts">
-import { ref } from 'vue'
-import FloatingButton from '../components/FloatingButton.vue'
+import { inject, Ref } from 'vue'
 
-// Declaramos la referencia al modal
-const modalRef = ref<HTMLDialogElement | null>(null)
+// Definimos el tipo aquí mismo
+interface ModalControl {
+  isModalOpen: Ref<boolean>;
+  openModal: () => void;
+  closeModal: () => void;
+}
 
-// Manejamos el clic del botón flotante
-function handleAddClick(): void {
-  console.log('Botón presionado desde Proje.vue')
-  modalRef.value?.showModal()
+// Le decimos a inject que esperamos un ModalControl
+const modalControl = inject<ModalControl>('modalControl')
+
+function openModalFromSidebar() {
+  modalControl?.openModal()
 }
 </script>
-
 <template>
   <div class="overflow-x-auto">
     <table class="table-auto w-full text-left border-separate border-spacing-y-2">
@@ -36,20 +40,11 @@ function handleAddClick(): void {
   </div>
 
   <!-- Botón flotante -->
-  <FloatingButton @click="handleAddClick">
-    +
-  </FloatingButton>
+   <button
+      class="absolute  bottom-6 right-6 bg-pink-500 hover:bg-pink-600 text-white rounded-full w-12 h-12 text-2xl shadow-lg z-50 flex items-center justify-center"
+      @click="openModalFromSidebar"
+    >
+      +
+    </button>
 
-  <!-- Modal estilo DaisyUI -->
-  <dialog ref="modalRef" id="my_modal_1" class="modal">
-    <div class="modal-box">
-      <h3 class="text-lg font-bold">¡Hola!</h3>
-      <p class="py-4 text-blue-500">Presiona ESC o haz clic en el botón para cerrar</p>
-      <div class="modal-action">
-        <form method="dialog">
-          <button class="btn">Cerrar</button>
-        </form>
-      </div>
-    </div>
-  </dialog>
 </template>

@@ -1,6 +1,32 @@
-<template>
+<!-- <template>
   <button
     class="fixed bottom-6 right-6 bg-pink-500 hover:bg-pink-600 text-white rounded-full w-12 h-12 text-2xl shadow-lg z-50 flex items-center justify-center"
+    @click="$emit('click')"
+    aria-label="Botón flotante"
+  >
+    <slot>+</slot>
+  </button>
+</template> -->
+
+<script setup lang="ts">
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  position: {
+    type: String,
+    default: 'right',
+    validator: (value: string) => ['left', 'right'].includes(value),
+  },
+})
+</script>
+
+<template>
+  <button
+    :class="[
+      'fixed bottom-6',
+      props.position === 'right' ? 'right-6' : 'left-6',
+      'bg-pink-500 hover:bg-pink-600 text-white rounded-full w-12 h-12 text-2xl shadow-lg z-50 flex items-center justify-center'
+    ]"
     @click="$emit('click')"
     aria-label="Botón flotante"
   >
