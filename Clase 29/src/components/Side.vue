@@ -1,22 +1,7 @@
 <script setup lang="ts">
 import { inject, Ref } from 'vue'
 
-interface ModalControl {
-  isModalOpen: Ref<boolean>;
-  openModal: () => void;
-  closeModal: () => void;
-}
 
-const modalControl = inject<ModalControl>('modalControl')
-
-
-if (!modalControl) {
-  console.error('modalControl no encontrado en Sidebar.vue')
-}
-
-function openModalFromSidebar() {
-  modalControl?.openModal()
-}
 </script>
 <template>
   <aside>
@@ -48,7 +33,7 @@ function openModalFromSidebar() {
       class="absolute bottom-4 left-4 bg-pink-500 text-white p-3 rounded-full text-lg shadow-md"
       @click="openModalFromSidebar"
     >
-      +
+      Hola!!
     </button>
   </aside>
 </template>

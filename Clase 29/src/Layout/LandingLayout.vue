@@ -4,13 +4,7 @@ import Sidebar from '../components/Side.vue'
 import Topbar from '../components/Top.vue'
 import { ref, provide } from 'vue'
 
-const isModalOpen = ref(false)
 
-provide('modalControl', {
-  isModalOpen,
-  openModal: () => { isModalOpen.value = true },
-  closeModal: () => { isModalOpen.value = false },
-})
 </script>
 
 <template>
@@ -29,14 +23,5 @@ provide('modalControl', {
       </main>
     </div>
     
-    <dialog :open="isModalOpen" class="modal" @close="isModalOpen = false">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">¡Hola!</h3>
-        <p class="py-4 text-blue-500">Presiona ESC o haz clic en el botón para cerrar</p>
-        <div class="modal-action">
-          <button class="btn" @click="isModalOpen = false">Cerrar</button>
-        </div>
-      </div>
-    </dialog>
   </div> 
 </template>

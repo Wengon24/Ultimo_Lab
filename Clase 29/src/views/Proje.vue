@@ -1,18 +1,27 @@
 
 <script setup lang="ts">
-import { inject, Ref } from 'vue'
-import FloatingButton from '../components/FloatingButton.vue' 
+import { ref } from 'vue'
+import FloatingButton from '../components/FloatingButton.vue'
+import ProjectModal from '../components/ModalSlots.vue' 
 
-interface ModalControl {
-  isModalOpen: Ref<boolean>
-  openModal: () => void
-  closeModal: () => void
+
+const isModalOpen = ref(false)
+
+function openModal() {
+  isModalOpen.value = true
 }
 
-const modalControl = inject<ModalControl>('modalControl')
+function closeModal() {
+  isModalOpen.value = false
+}
 
-function openModalFromSidebar() {
-  modalControl?.openModal()
+function handleSave() {
+  alert('Proyecto guardado exitosamente')
+  closeModal()
+}
+
+function handleClose() {
+  closeModal()
 }
 </script>
 
@@ -38,5 +47,30 @@ function openModalFromSidebar() {
     </table>
   </div>
 
-  <FloatingButton position="right" @click="openModalFromSidebar" />
+  <FloatingButton position="right" @click="openModal" />
+
+  <ProjectModal :isOpen="isModalOpen" @close="closeModal">
+  <template #header>
+    <h3 class="text-lg font-bold">Nuevo Proyecto</h3>
+    <p class="py-2">Aquí puedes crear un nuevo proyecto.</p>
+  </template>
+
+ 
+  <div class="form-control w-full max-w-xs space-y-4">
+    <div>
+      <label class="label">
+        <span class="label-text">Nombre del proyecto</span>
+      </label>
+      <input type="text" placeholder="Escribe aquí" class="input input-bordered text-black bg-white w-full max-w-xs" />
+
+    </div>
+
+  </div>
+
+  <template #actions>
+    <button class="btn btn-primary mr-2" @click="handleSave">Guardar</button>
+    <button class="btn" @click="handleClose">Cerrar</button>
+  </template>
+</ProjectModal>
+
 </template>
