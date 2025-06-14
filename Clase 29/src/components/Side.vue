@@ -29,7 +29,7 @@ function toggleProyecto(id: number) {
     <p v-if="store.myArray.length === 0" class="text-sm text-gray-400 mb-4">
       No hay proyectos
     </p>
-
+<div class="bg-blue-800 p-4 rounded-xl shadow-lg">
     <nav class="space-y-2 text-sm">
       <div v-for="proyecto in store.myArray" :key="proyecto.id" class="cursor-pointer space-y-1">
        
@@ -51,7 +51,7 @@ function toggleProyecto(id: number) {
         </ul>
       </div>
     </nav>
-
+</div>
     <button
       class="absolute bottom-4 left-4 bg-pink-500 text-white p-3 rounded-full text-lg shadow-md"
       @click="openModalFromSidebar"
