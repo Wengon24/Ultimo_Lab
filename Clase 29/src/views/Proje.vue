@@ -42,6 +42,15 @@ function progreso(proyecto: { tareas: { completado: number }[] }) {
   const sumaPorcentajes = proyecto.tareas.reduce((acc, t) => acc + (t.completado || 0), 0)
   return Math.round(sumaPorcentajes / proyecto.tareas.length)
 }
+function editarProyecto(proyecto) {
+  proyecto.editando = true
+}
+
+function guardarEdicionProyecto(proyecto) {
+  proyecto.editando = false
+  counterStore.guardarCambios()
+}
+
 
 </script>
 
@@ -59,7 +68,16 @@ function progreso(proyecto: { tareas: { completado: number }[] }) {
       <tbody class="text-white">
         <tr v-for="(proyecto, index) in counterStore.myArray" :key="index" class="bg-gray-800 rounded-lg">
           <td class="px-4 py-2">{{ index + 1 }}</td>
-          <td class="px-4 py-2">{{ proyecto.nombre }}</td>
+          <td class="px-4 py-2" @dblclick="editarProyecto(proyecto)">
+            <template v-if="proyecto.editando">
+              <input v-model="proyecto.nombre" @keyup.enter="guardarEdicionProyecto(proyecto)"
+                @blur="guardarEdicionProyecto(proyecto)" class="text-black rounded px-1 text-sm" autofocus />
+            </template>
+            <template v-else>
+              {{ proyecto.nombre }}
+            </template>
+          </td>
+
           <td class="px-4 py-2">{{ proyecto.tareas.length }}</td>
           <td class="px-4 py-2 w-40">
             <div>
@@ -67,6 +85,11 @@ function progreso(proyecto: { tareas: { completado: number }[] }) {
               <div class="text-xs text-right mt-1">{{ progreso(proyecto) }}%</div>
 
             </div>
+          </td>
+          <td class="px-4 py-2">
+            <button @click="counterStore.eliminarProyecto(proyecto.id)" class="text-red-500 text-xs hover:underline">
+              Eliminar
+            </button>
           </td>
         </tr>
       </tbody>
@@ -97,4 +120,3 @@ function progreso(proyecto: { tareas: { completado: number }[] }) {
     </template>
   </ProjectModal>
 </template>
-
